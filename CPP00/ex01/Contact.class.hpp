@@ -2,29 +2,29 @@
 #ifndef CONTACT_CLASS_HPP
 #define CONTACT_CLASS_HPP
 
+#include <iomanip>
 #include <iostream>
 #include <string>
 
 class Contact {
     public:
-    std::string first_name;   // Prénom du contact
-    std::string last_name;    // Nom de famille du contact
-    std::string nickname;     // Surnom du contact
-    std::string phone_number; // Numéro de téléphone
-    std::string darkest_secret; // Le plus grand secret du contact
+    std::string first_name;   
+    std::string last_name;  
+    std::string nickname;   
+    std::string phone_number;
+    std::string darkest_secret; 
     
-    static const int max_contacts = 8; // Nombre maximum de contacts
+    static const int max_contacts = 8;
     static int index;
     
     Contact();
     
     ~Contact();
     
-    // Méthodes pour définir les informations du contact
     void setFirstName(const std::string &fn) { first_name = fn; }
     void setLastName(const std::string &ln) { last_name = ln; }
     void setNickname(const std::string &nm) { nickname = nm; }
-    void setPhoneNumber(const std::string &pn) { phone_number = pn; }
+    int setPhoneNumber(const std::string &pn);
     void setDarkestSecret(const std::string &ds) { darkest_secret = ds; }
     
     void displayContactInfo() const {
@@ -40,6 +40,5 @@ class Contact {
     }
 };
 
-// Initialisation du membre statique `index`
 
-#endif // CONTACT_CLASS_HPP
+#endif

@@ -1,9 +1,12 @@
 #include "Harl.hpp"
 
 
-Harl::Harl(){}
-Harl::~Harl(){}
-
+Harl::Harl()
+{
+}
+Harl::~Harl()
+{
+}
 void	Harl::debug(void) const
 {
 	std::cout << "I love to get extra bacon for my 7XL-double-cheese-triple-pickle-special-ketchup burger. I just love it!" << std::endl << std::endl;
@@ -23,8 +26,6 @@ void	Harl::info(void) const
 {
 	std::cout << "I cannot believe adding extra bacon cost more money. You don't put enough! If you did I would not have to ask for it!" << std::endl << std::endl;
 }
-
-
 
 int	getCommand(std::string Command)
 {
@@ -49,5 +50,5 @@ void	Harl::complain(std::string Command) const
 	if (CommandNumber < 4)
 		(this->*(complains[CommandNumber]))();
 	else
-		std::cout << "[ INVALID ]\nInvalid Command. Try again." << std::endl << std::endl;
+		std::cout << "Invalid Command. Try again." << std::endl << std::endl;
 }

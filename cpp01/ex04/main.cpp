@@ -20,7 +20,6 @@ std::string customReplace(std::string str, const std::string &s1, const std::str
         pos += s1.length();
         str = str.substr(pos);
     }
-
     result += str;
     return result;
 }

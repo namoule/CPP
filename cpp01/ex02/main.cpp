@@ -13,6 +13,6 @@ int main()
     std::cout << "Valeur de la variable str: " << str << std::endl;
     std::cout << "Valeur pointée par stringPTR: " << *stringPTR << std::endl;
     std::cout << "Valeur pointée par stringREF: " << stringREF << std::endl;
-
+    
     return 0;
 }

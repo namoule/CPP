@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Zombie.cpp                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/19 14:06:26 by jealefev          #+#    #+#             */
+/*   Updated: 2025/05/19 14:06:27 by jealefev         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Zombie.hpp"
 
 Zombie::Zombie(std::string name)
@@ -7,6 +19,7 @@ Zombie::Zombie(std::string name)
 
 Zombie::~Zombie()
 {
+    std::cout << this->_name << " died " << std::endl;
 }
 
 void Zombie::announce(void)
@@ -16,13 +29,9 @@ void Zombie::announce(void)
 
 Zombie *Zombie::newZombie(std::string name)
 {
+    std::cout << "new zombie called for : '" << name << "' and called by " << this->_name << std::endl;
     return new Zombie(name);
 }
 
 
-void Zombie::randomChump(std::string name)
-{
-    Zombie* zmb = new Zombie(name);
-    std::cout << zmb->_name << ": BraiiiiiiinnnzzzZ..." << std::endl;
-    delete zmb;
-}
+

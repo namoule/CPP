@@ -24,7 +24,7 @@ class Contact {
     void setFirstName(const std::string &fn) { first_name = fn; }
     void setLastName(const std::string &ln) { last_name = ln; }
     void setNickname(const std::string &nm) { nickname = nm; }
-    void setPhoneNumber(const std::string &pn) { phone_number = pn; }
+    int setPhoneNumber(const std::string &pn);
     void setDarkestSecret(const std::string &ds) { darkest_secret = ds; }
     
     void displayContactInfo() const {

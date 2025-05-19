@@ -5,20 +5,20 @@
 
 class PhoneBook {
 public:
-    Contact contacts[Contact::max_contacts]; // Tableau de contacts
-    int current_index; // Indice du contact actuel ajouté
+    Contact contacts[Contact::max_contacts];
+    int current_index;
 
-    PhoneBook(); // Constructeur
-    ~PhoneBook(); // Destructeur
+    PhoneBook();
+    ~PhoneBook();
 
-    int add(); // Ajoute un contact
-    int search(); // Recherche et affiche les contacts
-    int exit_phonebook(); // Quitte le programme
-    int wrong_input(); // Gestion des mauvaises entrées
-    int check_commandes(char *commande); // Vérifie les commandes
-    int command_input(); // Récupère l'entrée de commande de l'utilisateur
-    int error(char *mess_err); // Affiche un message d'erreur
+    int add();
+    int search(); 
+    int exit_phonebook(); 
+    int wrong_input();
+    int check_commandes(char *commande);
+    int command_input();
+    int error(char *mess_err);
     static int index;
 };
 
-#endif // PHONEBOOK_CLASS_HPP
+#endif 

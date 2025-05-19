@@ -2,52 +2,49 @@
 #include <fstream>
 #include <string>
 
-int err(std::string str)
-{
-    std::cout << str;
+int err(const std::string &msg) {
+    std::cerr << msg;
     return 1;
 }
 
-std::string customReplace(std::string str, const std::string &s1, const std::string &s2)
-{
-    std::string result;
-    size_t pos = 0;
-
-    while ((pos = str.find(s1, pos)) != std::string::npos)
-    {
-        result += str.substr(0, pos);
-        result += s2;
-        pos += s1.length();
-        str = str.substr(pos);
+std::string replaceLetter(const std::string &line, char from, char to) {
+    std::string result = line;
+    for (std::size_t i = 0; i < result.length(); ++i) {
+        if (result[i] == from)
+            result[i] = to;
     }
-    result += str;
     return result;
 }
 
-int main(int argc, char **argv)
+int printInFile(char toChange, char newLetter, std::string output_filename, std::string filename)
 {
-    std::string s1, s2, filename, replace_file, buff;
-
-    if (argc != 4)
-        return err("Send right arguments please! [FILENAME] [S1] [S2]\n");
-
-    filename = argv[1];
-    s1 = argv[2];
-    s2 = argv[3];
-    replace_file = filename + ".replace";
-    
-    std::ifstream input(filename);
+    std::ifstream input(filename.c_str());
     if (!input)
-        return err("Failed to open input file.\n");
-    std::ofstream output(replace_file);
+        return(std::cerr << "cammot open infile.\n" << std::endl, 0);
+    std::ofstream output(output_filename.c_str());
     if (!output)
-        return err("Failed to create output file.\n");
-    while (std::getline(input, buff))
+        return(std::cerr << "error while creating output file\n" << std::endl, input.close(), 0);
+    std::string line;
+    bool firstLine = true;
+    while (std::getline(input, line))
     {
-        buff = customReplace(buff, s1, s2);
-        output << buff << std::endl;
+        if (!firstLine)
+            output << "\n";
+        output << replaceLetter(line, toChange, newLetter);
+        firstLine = false;
     }
     input.close();
     output.close();
+    return(0);
+}
+int main(int argc, char **argv)
+{
+    if (argc != 4)
+        return(std::cout << "[FILENAME] [CHAR_TO_REPLACE] [CHAR_REPLACEMENT]\n" <<std::endl, 0);
+    std::string filename = argv[1];
+    char toChange = argv[2][0];
+    char newLetter = argv[3][0];
+    std::string output_filename = filename + ".replace";
+    printInFile(toChange, newLetter, output_filename, filename);
     return 0;
 }

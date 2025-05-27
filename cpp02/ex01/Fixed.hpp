@@ -2,14 +2,14 @@
 #define FIXED_HPP
 
 #include <iostream>
-
+#include <math.h>
 class Fixed
 {
     private :
-        int _fixed_point;
-        static const int _fractionnal_bv;
+        int _fixedPoint;
+        static const int _fractionnalBv;
     public :
-        Fixed(void);
+        Fixed();
         Fixed(const int x);
         Fixed(const float x);
         Fixed(const Fixed &copy);

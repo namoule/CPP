@@ -1,72 +1,66 @@
 #include "Fixed.hpp"
 
-const int Fixed::_fractionnal_bv = 8;
+const int Fixed::_fractionnalBv = 8;
 
-Fixed::Fixed(): _fixed_point(0)
+Fixed::Fixed(): _fixedPoint(0)
 {
-    // std::cout << "Default constructor called" << std::endl;
 }
 
 Fixed::Fixed(const int x)
 {
-    // std::cout << "Int constructor called" << std::endl;
-    this->_fixed_point = x * 256;
+    this->_fixedPoint = x * 256;
 }
 
 Fixed::Fixed(const float x)
 {
-	//std::cout << "Float constructor called." << std::endl;
-	this->_fixed_point = roundf(x * (1 << this->_fractionnal_bv));
+	this->_fixedPoint = roundf(x * (1 << this->_fractionnalBv));
 	return;
 }
 
 
 Fixed::~Fixed()
 {
-    // std::cout << "Destructor called" << std::endl;
 }
 
 Fixed::Fixed(const Fixed &copy)
 {
-    // std::cout << "Copy constructor called" << std::endl;
     *this = copy;
 }
 
 int Fixed::getRawBits() const
 {
-    return this->_fixed_point;
+    return this->_fixedPoint;
 }
 
 int Fixed::getOther() const
 {
-    return this->_fractionnal_bv;
+    return this->_fractionnalBv;
 }
 
 void Fixed::setRawBits(const int raw)
 {
-    this->_fixed_point = raw;
+    this->_fixedPoint = raw;
 }
 
 Fixed &Fixed::operator=(Fixed const &src)
 {
-    // std::cout << "Copy assignment operator called" << std::endl;
     if(this != &src)
-        this->_fixed_point = src.getRawBits();
+        this->_fixedPoint = src.getRawBits();
     return *this;
 }
 
 float Fixed::toFloat() const
 {
-    return this->_fixed_point / 256.0f;
+    return this->_fixedPoint / 256.0f;
 }
 
 
-int Fixed::toInt(void) const  //divide by 256 to remove the fractional part and return to the original integer.
+int Fixed::toInt(void) const
 {
-    return this->_fixed_point / 256;
+    return this->_fixedPoint / 256;
 }
 
-std::ostream &operator<<(std::ostream &out, const Fixed &fixed) //is useful for writing the float number of the fixed class
+std::ostream &operator<<(std::ostream &out, const Fixed &fixed)
 {
     out << fixed.toFloat();
     return out;
@@ -77,82 +71,82 @@ std::ostream &operator<<(std::ostream &out, const Fixed &fixed) //is useful for 
 Fixed Fixed::operator+(const Fixed& other) const
 {
     Fixed result;
-    result._fixed_point = this->_fixed_point + other._fixed_point;
+    result._fixedPoint = this->_fixedPoint + other._fixedPoint;
     return result; 
 }
 
 Fixed Fixed::operator-(const Fixed& other) const
 {
     Fixed result;
-    result._fixed_point = this->_fixed_point - other._fixed_point;
+    result._fixedPoint = this->_fixedPoint - other._fixedPoint;
     return result;
 }
 
 Fixed Fixed::operator*(const Fixed& other) const
 {
     Fixed result;
-    result._fixed_point = (this->_fixed_point * other._fixed_point) / 256;
+    result._fixedPoint = (this->_fixedPoint * other._fixedPoint) / 256;
     return result;
 }
 
 Fixed Fixed::operator/(const Fixed& other) const
 {
     Fixed result;
-    result._fixed_point = this->_fixed_point / other._fixed_point;
+    result._fixedPoint = this->_fixedPoint / other._fixedPoint;
     return result;
 }
 
 bool Fixed::operator==(const Fixed& other) const
 {
-    return(this->_fixed_point == other._fixed_point);
+    return(this->_fixedPoint == other._fixedPoint);
 }
 
 bool Fixed::operator!=(const Fixed& other) const
 {
-    return!(this->_fixed_point == other._fixed_point);
+    return!(this->_fixedPoint == other._fixedPoint);
 }
 
 bool Fixed::operator<=(const Fixed& other) const
 {
-    return(this->_fixed_point <= other._fixed_point);
+    return(this->_fixedPoint <= other._fixedPoint);
 }
 
 bool Fixed::operator>=(const Fixed& other) const
 {
-    return(this->_fixed_point >= other._fixed_point);
+    return(this->_fixedPoint >= other._fixedPoint);
 }
 
 bool Fixed::operator<(const Fixed& other) const
 {
-    return(this->_fixed_point < other._fixed_point);
+    return(this->_fixedPoint < other._fixedPoint);
 }
 
 bool Fixed::operator>(const Fixed& other) const
 {
-    return(this->_fixed_point > other._fixed_point);
+    return(this->_fixedPoint > other._fixedPoint);
 }
 
 Fixed& Fixed::operator++() {
-    _fixed_point += 1;
+    _fixedPoint += 1;
     return *this;
 }
 
 Fixed Fixed::operator++(int) 
 {
     Fixed temp = *this; 
-    _fixed_point += 1;
+    _fixedPoint += 1;
     return temp;
 }
 
 Fixed& Fixed::operator--() 
 {
-    _fixed_point -= 1;
+    _fixedPoint -= 1;
     return *this;
 }
 
 Fixed Fixed::operator--(int) {
     Fixed temp = *this;
-    _fixed_point -= 1; 
+    _fixedPoint -= 1; 
     return temp;
 }
 

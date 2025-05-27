@@ -14,7 +14,7 @@ class ClapTrap
     public :
         void beRepaired(unsigned int amount);
         void takeDamage(unsigned int amount);
-        void attack(const std::string& target);
+        virtual void attack(const std::string& target);
         ClapTrap();
         ClapTrap(std::string name);
         ~ClapTrap();

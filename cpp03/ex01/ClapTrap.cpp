@@ -26,15 +26,9 @@ void ClapTrap::beRepaired(unsigned int amount)
         std::cout << this->name << " has no more energy..."<< std::endl;
         return;
     }
-    if(this->hit_points < 1)
-    {
-
-    }
-    if((this->hit_points + amount) >= 10)
-        this->hit_points = 10;
     else
         this->hit_points = this->hit_points + amount;
-        this->energy_point--;
+    this->energy_point--;
     std::cout << this->name << " get " << amount << " points back : " << this->hit_points << " health points left" << " | Energy left : " << this->energy_point << std::endl;
 
 }

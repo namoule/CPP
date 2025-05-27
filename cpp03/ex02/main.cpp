@@ -11,6 +11,7 @@ int main(void)
     a.highFiveGuys();
     std::cout << std::endl;
     a.highFiveGuys();
+    a.attack("coucou");
     std::cout << std::endl;
     b.guardGate();
     std::cout << std::endl;

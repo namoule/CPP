@@ -5,8 +5,8 @@
 
 class Fixed{
     private :
-        int _fixed_point;
-        static const int _fractionnal_point = 8;
+        int _fixedPoint;
+        static const int _fractionnalPoint = 8;
     public :
         Fixed(void);
         Fixed(Fixed const &src);

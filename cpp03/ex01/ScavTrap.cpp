@@ -18,7 +18,7 @@ ScavTrap::ScavTrap(const std::string name) : ClapTrap(name)
 
 ScavTrap::~ScavTrap()
 {
-        std::cout << "ScavTrap Destructor called" << std::endl;
+        std::cout << "ScavTrap died with :" << this->hit_points << " hit_points, " << this->attack_damage << " attack damage, " << this->energy_point << " energy points." << std::endl;
 }
 
 void ScavTrap::guardGate()
@@ -33,4 +33,10 @@ void ScavTrap::guardGate()
         std::cout << "Guardien mode disabled." << std::endl;
         this->_gate_keep_mode = false;
     }
+}
+
+void ScavTrap::attack(const std::string &target)
+{
+    std::cout << "ScavTrap " << name << " utilise son attaque spéciale contre " << target << " ! Et lui enleve : " << this->attack_damage << " damage points" << std::endl;
+    this->energy_point--;
 }

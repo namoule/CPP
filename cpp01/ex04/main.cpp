@@ -2,11 +2,6 @@
 #include <fstream>
 #include <string>
 
-int err(const std::string &msg) {
-    std::cerr << msg;
-    return 1;
-}
-
 std::string replaceLetter(const std::string &line, char from, char to) {
     std::string result = line;
     for (std::size_t i = 0; i < result.length(); ++i) {
@@ -40,7 +35,7 @@ int printInFile(char toChange, char newLetter, std::string output_filename, std:
 int main(int argc, char **argv)
 {
     if (argc != 4)
-        return(std::cout << "[FILENAME] [CHAR_TO_REPLACE] [CHAR_REPLACEMENT]\n" <<std::endl, 0);
+        return(std::cout << "[FILENAME] [CHAR_TO_REPLACE] [CHAR_REPLACEMENT]" <<std::endl, 0);
     std::string filename = argv[1];
     char toChange = argv[2][0];
     char newLetter = argv[3][0];

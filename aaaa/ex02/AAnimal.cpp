@@ -19,3 +19,12 @@ AAnimal::~AAnimal()
     else
         std::cout << "[AAnimal] " << this->_type << " died" << std::endl;
 }
+
+AAnimal& AAnimal::operator=(const AAnimal& other)
+{
+    if (this != &other)
+    {
+        this->_type = other._type;
+    }
+    return *this;
+}

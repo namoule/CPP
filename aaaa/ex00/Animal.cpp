@@ -36,3 +36,9 @@ Animal Animal::operator=(const Animal& other)
         std::cout << "[Animal] An animal have been created by copy" << std::endl;
     return *this;
 }
+
+Animal::Animal(const Animal& other)
+{
+    *this = other;
+    std::cout << "[ANIMAL] An " << this->_type << " have been created by copy" << std::endl;
+}

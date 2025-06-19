@@ -11,7 +11,6 @@ class AAnimal
         AAnimal();
         AAnimal(std::string type);
         AAnimal& operator=(const AAnimal& other);
-
         virtual ~AAnimal() = 0;
         virtual void makeSound() const = 0;
 };

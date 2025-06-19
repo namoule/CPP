@@ -31,6 +31,12 @@ Dog& Dog::operator=(const Dog& other)
         std::cout << "[Dog] An " << this->_type << " have been created by copy" << std::endl;
     }
     else
-        std::cout << "[Dog] An dog have been created by copy" << std::endl;
+        std::cout << "[Dog] A dog have been created by copy" << std::endl;
     return *this;
+}
+
+Dog::Dog(const Dog& other)
+{
+    *this = other;
+    std::cout << "[Dog]] created by copy" << std::endl;
 }

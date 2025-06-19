@@ -31,3 +31,9 @@ Cat& Cat::operator=(const Cat& other)
         std::cout << "[Cat] An cat have been created by copy" << std::endl;
     return *this;
 }
+
+Cat::Cat(const Cat& other)
+{
+    *this = other;
+    std::cout << "[Cat] A " << this->_type << " have been created by copy" << std::endl;
+}

@@ -21,9 +21,15 @@ WrongCat& WrongCat::operator=(const WrongCat& other)
     if(!other._type.empty())
     {
         this->_type = other._type;
-        std::cout << "[WrongCat] An " << this->_type << " have been created by copy" << std::endl;
+        std::cout << "[WrongCat] An " << this->_type << " have been copied" << std::endl;
     }
     else
-        std::cout << "[WrongCat] An wrongcat have been created by copy" << std::endl;
+        std::cout << "[WrongCat] An wrongcat have been copied" << std::endl;
     return *this;
+}
+
+WrongCat::WrongCat(const WrongCat& other)
+{
+    *this = other;
+    std::cout << "[WRONGCAT] Copy constructor called" << std::endl;
 }

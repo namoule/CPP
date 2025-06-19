@@ -3,32 +3,38 @@
 #include "Dogclass.hpp"
 #include "WrongAnimalclass.hpp"
 #include "WrongCatClass.hpp"
+#include "AnimalClass.hpp"
+
 int main()
 {
-    // Animal animal;
-    // animal.makeSound();
-    // Animal cow((std::string)"cow");
-    // cow.makeSound();
-    // Cat cat;
-    // cat.makeSound();
-    // Dog dog;
-    // dog.makeSound();
-    // std::cout << "cat type is [" << cat.getType() << "] and Dog type is [" << dog.getType() << "]" << std::endl;
-    // WrongAnimal wronganimal;
-    // wronganimal.makeSound();
-    // WrongCat wrongcat;
-    // wrongcat.makeSound();
+    std::cout << " Canonical Form Tests " << std::endl;
 
-    Animal* p = new Cat();
-    p->makeSound();
-    delete p;
-    Animal* q = new Dog();
-    q->makeSound();
-    delete q;
-    WrongAnimal* r = new WrongCat();
-    r->makeSound();
-    delete r;
-    WrongCat s;
-    s.makeSound();
-    return(0);
+    Cat cat1;
+    Cat cat2(cat1);
+    Cat cat3;
+    cat3 = cat1;
+
+    Dog dog1;
+    Dog dog2(dog1);
+    Dog dog3;
+    dog3 = dog1;
+
+    std::cout << "\n Polymorphism Tests " << std::endl;
+
+    const Animal* a1 = new Cat();
+    const Animal* a2 = new Dog();
+    a1->makeSound();
+    a2->makeSound();
+    delete a1;
+    delete a2;
+
+    std::cout << "\n WrongAnimal Polymorphism Test " << std::endl;
+
+    const WrongAnimal* wa = new WrongCat();
+    wa->makeSound();
+    delete wa;
+
+
+    std::cout << "\n destructor time" << std::endl;
+    return 0;
 }

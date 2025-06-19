@@ -5,6 +5,12 @@ WrongAnimal::WrongAnimal()
     this->_type = (std::string)"WrongAnimal";
     std::cout << "[Wrong`Animal] A " << this->_type << " have been created." << std::endl;
 }
+
+WrongAnimal::WrongAnimal(const WrongAnimal& other)
+{
+    *this = other;
+    std::cout << "[WRONGANIMAL] Copy constructor called" << std::endl;
+}
 WrongAnimal::~WrongAnimal()
 {
     std::cout << "[WrongAnimal] A " << this->_type << " died" << std::endl;
@@ -23,6 +29,6 @@ WrongAnimal WrongAnimal::operator=(const WrongAnimal& other)
         std::cout << "[WrongAnimal] An " << this->_type << " have been created by copy" << std::endl;
     }
     else
-        std::cout << "[WrongAnimal] An wronganimal have been created by copy" << std::endl;
+        std::cout << "[WrongAnimal] A wronganimal have been created by copy" << std::endl;
     return *this;
 }

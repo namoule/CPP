@@ -1,5 +1,6 @@
 #include "ScavTrap.hpp"
 #include "FragTrap.hpp"
+
 int main(void)
 {
     std::string str = "FragTrap";
@@ -8,10 +9,11 @@ int main(void)
     std::cout << std::endl;
     ScavTrap b(str);
     std::cout << std::endl;
+    a.attack("jean mich");
+    a.printValues();
     a.highFiveGuys();
     std::cout << std::endl;
     a.highFiveGuys();
-    a.attack("coucou");
     std::cout << std::endl;
     b.guardGate();
     std::cout << std::endl;

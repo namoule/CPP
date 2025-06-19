@@ -6,19 +6,30 @@ FragTrap::FragTrap() : ClapTrap()
     std::cout << "default constructor FragTrap called" << std::endl;
 }
 
-FragTrap::FragTrap(const std::string name) : ClapTrap(name)
+FragTrap::FragTrap(const std::string _name) : ClapTrap(_name)
 {
-    this->name = name;
-    this->attack_damage = 30;
-    this->hit_points = 100;
-    this->energy_point = 100;
-    this->_gate_keep_mode = false;
-    std::cout << "default constructor FragTrap called." << std::endl << std::endl << "Values have been updated :" << std::endl << this->attack_damage << " attacks damage." << std::endl << this->hit_points << " hits point" << std::endl  << this->energy_point << " energy points." << std::endl;;
+    this->_name = _name;
+    this->_attackDamage = 30;
+    this->_hitPoints = 100;
+    this->_energyPoints = 100;
+    this->_gateKeepMode = false;
+    std::cout << "default constructor FragTrap called." << std::endl << std::endl << "Values have been updated :" << std::endl << this->_attackDamage << " attacks damage." << std::endl << this->_hitPoints << " hits point" << std::endl  << this->_energyPoints << " energy points." << std::endl;;
 }
 
 FragTrap::~FragTrap()
 {
-        std::cout << name <<" Destructor called" << std::endl;
+        std::cout << _name <<" Destructor called" << std::endl;
+}
+
+void FragTrap::attack(const std::string& target)
+{
+    if(this->_energyPoints <= 0)
+        std::cout << this->_name << " has no more energy...." << std::endl;
+    else
+    {
+        std::cout << "a frag trap named : " << this->_name << " attacked  : " << target << " with " << this->_attackDamage << " points" << std::endl;
+        this->_energyPoints--;
+    }
 }
 
 void FragTrap::highFiveGuys()

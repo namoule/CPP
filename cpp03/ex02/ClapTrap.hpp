@@ -6,10 +6,10 @@
 class ClapTrap
 {
     protected:
-        int hit_points;
-        int energy_point;
-        int attack_damage;
-        std::string name;
+        int _hitPoints;
+        int _energyPoints;
+        int _attackDamage;
+        std::string _name;
 
     public :
         void beRepaired(unsigned int amount);
@@ -19,7 +19,7 @@ class ClapTrap
         ClapTrap(std::string name);
         ~ClapTrap();
 
-        void print_values();
+        void printValues();
 };
 
 #endif

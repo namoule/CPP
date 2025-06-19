@@ -6,37 +6,37 @@ ScavTrap::ScavTrap() : ClapTrap()
     std::cout << "default constructor ScavTrap called" << std::endl;
 }
 
-ScavTrap::ScavTrap(const std::string name) : ClapTrap(name)
+ScavTrap::ScavTrap(const std::string _name) : ClapTrap(name)
 {
-    this->name = name;
-    this->attack_damage = 20;
-    this->hit_points = 100;
-    this->energy_point = 50;
-    this->_gate_keep_mode = false;
-    std::cout << "default constructor ScavTrap called and the given attacks damage are : " << this->attack_damage << ", " << this->hit_points << " hits points, " << this->energy_point << " energy points." << std::endl;
+    this_name = _name;
+    this->attackDamage = 20;
+    this->hitPoints = 100;
+    this->energyPoints = 50;
+    this->_gateKeepMode = false;
+    std::cout << "default constructor ScavTrap called and the given attacks damage are : " << this->attackDamage << ", " << this->hitPoints << " hits points, " << this->energyPoints << " energy points." << std::endl;
 }
 
 ScavTrap::~ScavTrap()
 {
-        std::cout << "ScavTrap died with :" << this->hit_points << " hit_points, " << this->attack_damage << " attack damage, " << this->energy_point << " energy points." << std::endl;
+        std::cout << "ScavTrap died with :" << this->hitPoints << " hitPoints, " << this->attackDamage << " attack damage, " << this->energyPoints << " energy points." << std::endl;
 }
 
 void ScavTrap::guardGate()
 {
-    if(this->_gate_keep_mode == false)
+    if(this->_gateKeepMode == false)
     {
         std::cout << "Guardian mode activated !" << std::endl;
-        this->_gate_keep_mode = true;
+        this->_gateKeepMode = true;
     }
     else
     {
-        std::cout << "Guardien mode disabled." << std::endl;
-        this->_gate_keep_mode = false;
+        std::cout << "Guardian mode disabled." << std::endl;
+        this->_gateKeepMode = false;
     }
 }
 
 void ScavTrap::attack(const std::string &target)
 {
-    std::cout << "ScavTrap " << name << " utilise son attaque spéciale contre " << target << " ! Et lui enleve : " << this->attack_damage << " damage points" << std::endl;
-    this->energy_point--;
+    std::cout << "ScavTrap " << _name << " use his special attack on " << target << " ! and cause : " << this->attackDamage << " damage points" << std::endl;
+    this->energyPoints--;
 }

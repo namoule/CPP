@@ -4,82 +4,47 @@
 #include "MateriaSourceClass.hpp"
 #include <iostream>
 
-
-
-/*
-void faireVoler(Volant* objet)
-{
-    objet->voler();  // Exemle pour interet classe abstraite et interface
-}
-*/
-
+#include "CharacterClass.hpp"
+#include "IceClass.hpp"
+#include "CureClass.hpp"
+#include "MateriaSourceClass.hpp"
+#include <iostream>
 
 int main()
 {
-    IMateriaSource* src= new MateriaSource();
+    std::cout << "=== Creating Materia Source and learning Materia ===" << std::endl;
+    IMateriaSource* src = new MateriaSource();
     src->learnMateria(new Ice());
     src->learnMateria(new Cure());
-    src->learnMateria(new Cure());
-    src->learnMateria(new Cure());
-    src->learnMateria(new Cure());
 
-
+    std::cout << "\n=== Creating Character 'me' and equipping Materia ===" << std::endl;
     ICharacter* me = new Character("me");
-    AMateria *tmp;
-    tmp = src->createMateria("ice");
-    me->equip(tmp);
-    tmp = src->createMateria("cure");
-    me->equip(tmp);
-    tmp = src->createMateria("cure");
-    me->equip(tmp);
-    tmp = src->createMateria("cure");
-    me->equip(tmp);
-    tmp = src->createMateria("cure"); // 5 donc pb
-    me->equip(tmp);
-    delete tmp;
+
+    AMateria* ice = src->createMateria("ice");
+    AMateria* cure1 = src->createMateria("cure");
+    AMateria* cure2 = src->createMateria("cure");
+    AMateria* unknown = src->createMateria("fire");
+
+    me->equip(ice);
+    me->equip(cure1);
+    me->equip(cure2);
+    me->equip(unknown);
+
+    std::cout << "\n=== Creating Character 'bob' and using Materia ===" << std::endl;
     ICharacter* bob = new Character("bob");
-    me->use(4, *bob);
-    
-    //-----------------------------------------------/ unequip part
-    // bob->use(3, *bob);
-    // bob->unequip(0);
-    // tmp = src->createMateria("ice");
-    // bob->equip(tmp);
-    // bob->unequip(0);
-    // delete tmp;
 
-    //-----------------------------------------------/ unequip part
+    me->use(0, *bob); // Ice
+    me->use(1, *bob); // Cure
+    me->use(2, *bob); // Cure
+    me->use(3, *bob); // unknown
 
-    bob->use(0, *bob);
-    me->use(0, *bob);
+    std::cout << "\n=== Testing unequip ===" << std::endl;
+    me->unequip(1);
     me->use(1, *bob);
 
+    // delete cure1;
     delete me;
     delete bob;
     delete src;
-
-    //--------------------------------------------------------//
-
-    // Character a("A");
-
-    // AMateria* ice = new Ice();
-    // AMateria* cure = new Cure();
-
-    // a.equip(ice);
-    // a.equip(cure);
-
-    // Character b(a);
-
-    // Character c("C");
-    // c = a;
-
-    // a.use(0, a);
-    // a.use(1, a);
-
-    // b.use(0, a);
-    // b.use(1, a);
-
-    // c.use(0, a);
-    // c.use(1, a);
     return 0;
 }

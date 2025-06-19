@@ -63,20 +63,25 @@ std::string	const	&Character::getName( void )
 	return (this->_name);
 }
 
-void	Character::equip( AMateria	*m )
+void Character::equip(AMateria* m)
 {
-	int	i = 0;
+    if (!m)
+        return;
 
-	while (i < 4)
-	{
-		if (this->_inventory[i] == NULL)
-		{
-			this->_inventory[i] = m;
-			break ;
-		}
-		i++;
-	}
+    for (int i = 0; i < 4; ++i)
+    {
+        if (this->_inventory[i] == nullptr)
+        {
+            this->_inventory[i] = m;
+            std::cout << "[Character] Equipped " << m->getType() << " in slot " << i << std::endl;
+            return;
+        }
+    }
+
+    std::cout << "[Character] Inventory full, cannot equip " << m->getType() << std::endl;
+    delete m;
 }
+
 
 void	Character::unequip( int	idx )
 {

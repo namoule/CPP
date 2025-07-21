@@ -6,7 +6,8 @@ TARGET = Bureaucrat
 SRC = Bureaucrat.cpp main.cpp
 OBJ = Bureaucrat.o main.o
 
-HEADERS = Bureaucrat.hpp
+HEADERS = Bureaucrat.hpp 
+
 
 all: $(TARGET)
 

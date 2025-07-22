@@ -1,22 +1,39 @@
 #include "ShrubberyCreationForm.hpp"
+#include "Bureaucrat.hpp"
+
+void ShrubberyCreationForm::setTarget(std::string target)
+{
+    this->_target = target;
+}
 
 ShrubberyCreationForm::ShrubberyCreationForm()
 {
     this->setGrades(145, 137);
     this->setName("ShrubberyCreationForm");
+    this->setTarget("Target");
     std::cout << *this << std::endl;
 }
+
+
+ShrubberyCreationForm::ShrubberyCreationForm(std::string target)
+{
+    this->setGrades(145, 137);
+    this->setName("ShrubberyCreationForm");
+    this->setTarget(target);
+    std::cout << *this << std::endl;
+}
+
 
 ShrubberyCreationForm::~ShrubberyCreationForm()
 {
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm &other) : AForm(other)
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &other) : AForm(other)
 {
     std::cout << "copy : " << this->getName() << " " << this->getGradeSign() << " " << this->getGradeExec() << " " << this->getStatus() << std::endl;
 }
 
-ShrubberyCreationForm ShrubberyCreationForm::operator=(ShrubberyCreationForm &other)
+ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationForm &other)
 {
     this->setGrades(other.getGradeSign(), other.getGradeExec());
     this->setName(other.getName());
@@ -31,27 +48,25 @@ std::ostream& operator<<(std::ostream& os, const ShrubberyCreationForm& b)
     return os;
 }
 
-
-    
-void ShrubberyCreationForm::printTree(std::ostringstream &oss)
+void ShrubberyCreationForm::execute(Bureaucrat const & executor) const
 {
-    oss << "a tree";
-}
+    if (!this->getStatus())
+        throw AForm::FormNotSignedException();
+    if (executor.getGrade() > this->getGradeExec())
+        throw AForm::GradeTooLowException();
 
-
-void ShrubberyCreationForm::createFile(std::string target)
-{
     std::ostringstream oss;
-    this->printTree(oss);
-    std::ofstream outFile(target.append("_shrubbery").c_str());
-    try
-    {
-        outFile.is_open();
-        outFile << oss.str();
-        outFile.close();
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
+    oss << "       _-_       \n"
+           "    /~~   ~~\\   \n"
+           " /~~         ~~\\\n"
+           "{               }\n"
+           " \\  _-     -_  /\n"
+           "   ~  \\ //  ~ \n"
+           "_- -   | | _- _\n"
+           "  _ -  | |   -_\n"
+           "      // \\\n";
+
+    std::ofstream outFile((this->getName() + "_shrubbery").c_str());
+    outFile << oss.str();
+    outFile.close();
 }

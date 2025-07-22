@@ -63,7 +63,7 @@ AForm::AForm(const AForm& other) : _name(other._name), _signed(other._signed), _
 
 AForm::~AForm()
 {
-    std::cout << "[" << "\033[33m" << this->getName() << "\033[0m" << "] has been put in the paper shredder, grade needed were [" << "\033[35m" << this->getGradeSign() << "\033[0m" "] to sign and " << "[" << "\033[35m" << this->getGradeSign() << "\033[0m" << "] , and had status " << this->getStatus() <<  std::endl;
+    std::cout << "[" << "\033[33m" << this->getName() << "\033[0m" << "] has been put in the paper shredder, grade needed were [" << "\033[35m" << this->getGradeSign() << "\033[0m" "] to sign and " << "[" << "\033[35m" << this->getGradeExec() << "\033[0m" << "] , and had status " << this->getStatus() <<  std::endl;
 }
 
 AForm& AForm::operator=(const AForm& other)
@@ -100,18 +100,15 @@ void AForm::setStatus(bool status)
     this->_signed = status;
 }
 
-bool AForm::execute(Bureaucrat const & executor) const
+void AForm::execute(Bureaucrat const & executor) const
 {
     if(executor.getGrade() >= this->getGradeExec())
     {
         throw GradeTooLowException();
-        return(false);
     }
     else if(this->getStatus() == 0)
     {
         throw FormNotSignedException();
-        return(false);
     } 
-    else
-        return(true);
+    std::cout << "Form can be executed" << std::endl;
 }

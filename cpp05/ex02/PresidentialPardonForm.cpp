@@ -1,4 +1,10 @@
 #include "PresidentialPardonForm.hpp"
+#include "Bureaucrat.hpp"
+
+void PresidentialPardonForm::setTarget(std::string target)
+{
+    this->_target = target;
+}
 
 PresidentialPardonForm::PresidentialPardonForm()
 {
@@ -7,16 +13,22 @@ PresidentialPardonForm::PresidentialPardonForm()
     std::cout << *this << std::endl;
 }
 
-PresidentialPardonForm::~PresidentialPardonForm()
+PresidentialPardonForm::PresidentialPardonForm(std::string target)
 {
-    std::cout << "[" << this->getName() << "] have been put to paper shredder" << std::endl; 
-}
-PresidentialPardonForm::PresidentialPardonForm(PresidentialPardonForm &other) : AForm(other)
-{
-    std::cout << "copy : " << this->getName() << " " << this->getGradeSign() << " " << this->getGradeExec() << " " << this->getStatus() << std::endl;
+    this->setGrades(25, 5);
+    this->setName("PresidentialPardonForm");
+    this->setTarget(target);
+    std::cout << *this << std::endl;
 }
 
-PresidentialPardonForm PresidentialPardonForm::operator=(PresidentialPardonForm &other)
+PresidentialPardonForm::~PresidentialPardonForm()
+{
+}
+PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &other) : AForm(other)
+{
+}
+
+PresidentialPardonForm& PresidentialPardonForm::operator=(const PresidentialPardonForm &other)
 {
     this->setGrades(other.getGradeSign(), other.getGradeExec());
     this->setName(other.getName());
@@ -31,7 +43,12 @@ std::ostream& operator<<(std::ostream& os, const PresidentialPardonForm& b)
 }
 
 
-void PresidentialPardonForm::presidentialPardon(std::string target)
+void PresidentialPardonForm::execute(Bureaucrat const & executor) const
 {
-    (void)target;
+    if (!this->getStatus())
+        throw AForm::FormNotSignedException();
+    if (executor.getGrade() > this->getGradeExec())
+        throw AForm::GradeTooLowException();
+
+    std::cout << "\033[94m" << this->getName() << " has been pardoned by Zaphod Beeblebrox.\n" << "\033[0m" << std::endl;
 }

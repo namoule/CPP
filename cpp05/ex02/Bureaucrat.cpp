@@ -81,11 +81,11 @@ void Bureaucrat::signAForm(AForm &Aform)
     try
     {
         Aform.beSigned(*this);
-        std::cout << "\033[96m" << this->getName() << " signed " << Aform.getName() << "\033[0m" << std::endl;
+        std::cout << "\033[92m" << this->getName() << " signed " << Aform.getName() << "\033[0m" << std::endl;
     }
     catch (const std::exception& e)
     {
-        std::cout << "\033[96m" << this->getName() << " couldn't sign " << Aform.getName()
+        std::cout << "\033[91m" << this->getName() << " couldn't sign " << Aform.getName()
                   << " because " << e.what() << "\033[0m" << std::endl;
     }
 }

@@ -4,17 +4,27 @@
 #include "AForm.hpp"
 #include <iostream>
 #include <cstdlib>
+#include <ctime>
 
 class RobotomyRequestForm : public AForm
 {
+
+    private:
+        std::string _target;
     public: 
         RobotomyRequestForm();
+        RobotomyRequestForm(std::string target);
+        RobotomyRequestForm(const RobotomyRequestForm& other);
         ~RobotomyRequestForm();
-        RobotomyRequestForm(RobotomyRequestForm &other);
-        RobotomyRequestForm operator=(RobotomyRequestForm &other);
-        void drillingNoise(std::string target);
 
+        RobotomyRequestForm& operator=(const RobotomyRequestForm& other);
+
+        void setTarget(std::string target);
+
+
+        void execute(Bureaucrat const & executor) const;
 };
+
 std::ostream& operator<<(std::ostream& os, const RobotomyRequestForm& b);
 
 #endif

@@ -8,15 +8,22 @@
 
 class ShrubberyCreationForm : public AForm
 {
-    public :
+    private:
+        std::string _target;
+    public:
         ShrubberyCreationForm();
+        ShrubberyCreationForm(std::string target);
+        ShrubberyCreationForm(const ShrubberyCreationForm& other);
         ~ShrubberyCreationForm();
-        ShrubberyCreationForm(ShrubberyCreationForm &other);
-        ShrubberyCreationForm operator=(ShrubberyCreationForm &other);
-        void createFile(std::string target);
-        void printTree(std::ostringstream &oss);
-        std::string renameFile(std::string target);
+
+        ShrubberyCreationForm& operator=(const ShrubberyCreationForm& other);
+
+        void setTarget(std::string target);
+
+
+        void execute(Bureaucrat const & executor) const;
 };
+
 std::ostream& operator<<(std::ostream& os, const ShrubberyCreationForm& b);
 
 #endif

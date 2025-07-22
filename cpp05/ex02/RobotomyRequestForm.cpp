@@ -1,4 +1,11 @@
 #include "RobotomyRequestForm.hpp"
+#include "Bureaucrat.hpp"
+
+
+void RobotomyRequestForm::setTarget(std::string target)
+{
+    this->_target = target;
+}
 
 RobotomyRequestForm::RobotomyRequestForm()
 {
@@ -7,15 +14,23 @@ RobotomyRequestForm::RobotomyRequestForm()
     std::cout << *this << std::endl;
 }
 
+RobotomyRequestForm::RobotomyRequestForm(std::string target)
+{
+    this->setGrades(72, 45);
+    this->setName("ShrubberyCreationForm");
+    this->setTarget(target);
+    std::cout << *this << std::endl;
+}
+
 RobotomyRequestForm::~RobotomyRequestForm()
 {
 }
-RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm &other) : AForm(other)
+RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &other) : AForm(other)
 {
     std::cout << "copy : " << this->getName() << " " << this->getGradeSign() << " " << this->getGradeExec() << " " << this->getStatus() << std::endl;
 }
 
-RobotomyRequestForm RobotomyRequestForm::operator=(RobotomyRequestForm &other)
+RobotomyRequestForm& RobotomyRequestForm::operator=(const RobotomyRequestForm &other)
 {
     this->setGrades(other.getGradeSign(), other.getGradeExec());
     this->setName(other.getName());
@@ -29,11 +44,16 @@ std::ostream& operator<<(std::ostream& os, const RobotomyRequestForm& b)
     return os;
 }
 
-void RobotomyRequestForm::drillingNoise(std::string target)
+void RobotomyRequestForm::execute(Bureaucrat const & executor) const
 {
-    std::cout << "****Drilling noises****";
-    if(rand() % 2)
-        std::cout << target << "\033[92m" << " you have been Robotomized" << "\033[0m" << std::endl;
+    if (!this->getStatus())
+        throw AForm::FormNotSignedException();
+    if (executor.getGrade() > this->getGradeExec())
+        throw AForm::GradeTooLowException();
+
+    std::cout << "****Drilling noises**** ";
+    if (std::rand() % 2)
+        std::cout << "\033[92m" << this->getName() << " has been robotomized successfully!\n "<< "\033[0m" << std::endl;
     else
-        std::cout << target << "\033[91m" << " Robotomization failed" << "\033[0m" << std::endl;    
+        std::cout << "\033[91m" << "Robotomy failed on " << this->getName() << "!\n" << "\033[0m" << std::endl;
 }

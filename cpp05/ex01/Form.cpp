@@ -3,7 +3,7 @@
 
 std::ostream& operator<<(std::ostream& os, const Form& b)
 {
-    os  << "\033[91m" << b.getName() << "\033[97m" << ", Form grade " << "\033[93m" << b.getGradeExec() << "\033[0m" << " to exec, and " << "\033[93m" << b.getGradeSign() << "\033[0m" << " to sign with status : " << b.getStatus() <<  " (0 = false | 1 = true)" << std::endl;
+    os  << "\033[91m" << b.getName() << "\033[97m" << ", Form grade " << "\033[93m" << b.getGradeExec() << "\033[0m" << " to exec, and " << "\033[93m" << b.getGradeSign() << "\033[0m" << " to sign with status : " << b.getStatus() <<  " (0 = non-signed | 1 = signed )" << std::endl;
     return os;
 }
 

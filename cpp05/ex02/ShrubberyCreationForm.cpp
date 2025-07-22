@@ -48,13 +48,8 @@ std::ostream& operator<<(std::ostream& os, const ShrubberyCreationForm& b)
     return os;
 }
 
-void ShrubberyCreationForm::execute(Bureaucrat const & executor) const
+void ShrubberyCreationForm::executeAction() const
 {
-    if (!this->getStatus())
-        throw AForm::FormNotSignedException();
-    if (executor.getGrade() > this->getGradeExec())
-        throw AForm::GradeTooLowException();
-
     std::ostringstream oss;
     oss << "       _-_       \n"
            "    /~~   ~~\\   \n"

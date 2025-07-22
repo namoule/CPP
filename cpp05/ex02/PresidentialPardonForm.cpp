@@ -42,13 +42,8 @@ std::ostream& operator<<(std::ostream& os, const PresidentialPardonForm& b)
     return os;
 }
 
-
-void PresidentialPardonForm::execute(Bureaucrat const & executor) const
+void PresidentialPardonForm::executeAction() const
 {
-    if (!this->getStatus())
-        throw AForm::FormNotSignedException();
-    if (executor.getGrade() > this->getGradeExec())
-        throw AForm::GradeTooLowException();
-
-    std::cout << "\033[94m" << this->getName() << " has been pardoned by Zaphod Beeblebrox.\n" << "\033[0m" << std::endl;
+    std::cout << this->_target << " has been pardoned by Zaphod Beeblebrox." << std::endl;
 }
+

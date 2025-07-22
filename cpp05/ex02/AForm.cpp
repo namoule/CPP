@@ -102,13 +102,9 @@ void AForm::setStatus(bool status)
 
 void AForm::execute(Bureaucrat const & executor) const
 {
-    if(executor.getGrade() >= this->getGradeExec())
-    {
-        throw GradeTooLowException();
-    }
-    else if(this->getStatus() == 0)
-    {
+    if (!this->getStatus())
         throw FormNotSignedException();
-    } 
-    std::cout << "Form can be executed" << std::endl;
+    if (executor.getGrade() > this->getGradeExec())
+        throw GradeTooLowException();
+    this->executeAction();
 }

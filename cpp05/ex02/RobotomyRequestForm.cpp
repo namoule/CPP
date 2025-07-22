@@ -44,13 +44,8 @@ std::ostream& operator<<(std::ostream& os, const RobotomyRequestForm& b)
     return os;
 }
 
-void RobotomyRequestForm::execute(Bureaucrat const & executor) const
+void RobotomyRequestForm::executeAction() const
 {
-    if (!this->getStatus())
-        throw AForm::FormNotSignedException();
-    if (executor.getGrade() > this->getGradeExec())
-        throw AForm::GradeTooLowException();
-
     std::cout << "****Drilling noises**** ";
     if (std::rand() % 2)
         std::cout << "\033[92m" << this->getName() << " has been robotomized successfully!\n "<< "\033[0m" << std::endl;

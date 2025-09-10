@@ -1,10 +1,9 @@
+NAME = ex01
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = main.cpp
+SRC = main.cpp Serializer.cpp Data.cpp
 OBJ = $(SRC:.cpp=.o)
-
-NAME = Array
 
 all: $(NAME)
 

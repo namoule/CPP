@@ -1,26 +1,59 @@
 #ifndef ARRAY_HPP
 #define ARRAY_HPP
 
-#include <iostream>
+#include <exception>
 
-template <typename T> class Array
-{
-    public:
-    T *_elements;
-    
-    class OutOfBounds : public std::exception 
+template <typename T>
+class Array {
+private:
+    T* _data;
+    unsigned int _size;
+
+public:
+    Array() : _data(nullptr), _size(0) {}
+    Array(unsigned int n) : _data(new T[n]()), _size(n) {}
+    Array(const Array& other) : _data(new T[other._size]), _size(other._size)
     {
-        public:
-                virtual const char* what() const throw();
-    };
+        for (unsigned int i = 0; i < _size; ++i)
+            _data[i] = other._data[i];
+    }
 
-    Array();
-    Array(unsigned int n);
-    Array(Array *other);
-    Array& operator=(const Array& other);
-    ~Array();
-    size_t size();
+    Array& operator=(const Array& other)
+    {
+        if (this != &other)
+        {
+            delete[] _data;
+            _size = other._size;
+            _data = new T[_size];
+            for (unsigned int i = 0; i < _size; ++i)
+                _data[i] = other._data[i];
+        }
+        return *this;
+    }
 
+    T& operator[](unsigned int index)
+    {
+        if (index >= _size)
+            throw std::exception();
+        return _data[index];
+    }
+
+    const T& operator[](unsigned int index) const
+    {
+        if (index >= _size)
+            throw std::exception();
+        return _data[index];
+    }
+
+    unsigned int size() const
+    {
+        return _size;
+    }
+
+    ~Array()
+    {
+        delete[] _data;
+    }
 };
 
 #endif

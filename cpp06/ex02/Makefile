@@ -1,10 +1,9 @@
+NAME = ex02
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = main.cpp
+SRC = main.cpp Base.cpp A.cpp B.cpp C.cpp
 OBJ = $(SRC:.cpp=.o)
-
-NAME = whatever
 
 all: $(NAME)
 

@@ -24,8 +24,9 @@ class Span
         void addNumber(int n);
         template <typename T>
         void addRange(const T& range);
-        size_t shortestSpan();
-        size_t longestSpan();
+
+        unsigned long shortestSpan();
+        unsigned long longestSpan();
 };
 
-#endif
+#endif 

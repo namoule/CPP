@@ -1,4 +1,5 @@
 #include "Span.hpp"
+#include <algorithm>
 
 const char* Span::AlreadyFullException::what() const throw()
 {
@@ -11,7 +12,6 @@ const char* Span::NoSpanFound::what() const throw()
     return "No span found";
 }
 
-#include "Span.hpp"
 
 Span::Span(unsigned int N) : _storage(), _maxSize(N)
 {
@@ -36,12 +36,29 @@ void Span::addRange(const T& range)
     }
 }
 
-size_t Span::shortestSpan()
+
+unsigned long Span::shortestSpan()
 {
-    return 0;
+    size_t stsspn;
+    for(size_t i = 0; i < _maxSize - 1; i++)
+    {
+        size_t diff = std::abs(_storage[i] - _storage[i+1]);
+        if(diff < stsspn)
+            stsspn = diff;
+    }
+    return stsspn;
 }
 
-size_t Span::longestSpan()
+
+
+unsigned long Span::longestSpan()
 {
-    return 0;
-}
+    size_t lgstspn;
+    for(size_t i = 0; i < _maxSize - 1; i++)
+    {
+        size_t diff = std::abs(_storage[i] - _storage[i+1]);
+        if(diff > lgstspn)
+            lgstspn = diff;
+    }
+    return lgstspn;
+} 

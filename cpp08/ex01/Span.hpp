@@ -6,27 +6,38 @@
 
 class Span
 {
-    private:
-         std::vector<int> _storage;
-        unsigned int _maxSize;
-    public:
-        class AlreadyFullException : public std::exception
-        {
-            public:
-                virtual const char* what() const throw();
-        };
-        class NoSpanFound : public std::exception
-        {
-            public:
-                virtual const char* what() const throw();
-        };
-        Span(unsigned int N);
-        void addNumber(int n);
-        template <typename T>
-        void addRange(const T& range);
+private:
+    std::vector<int> _storage;
+    unsigned int _maxSize;
 
-        unsigned long shortestSpan();
-        unsigned long longestSpan();
+public:
+    Span();
+    Span(unsigned int N);
+    Span(const Span& other);
+    Span& operator=(const Span& other);
+    ~Span();
+
+    class AlreadyFullException : public std::exception
+    {
+    public:
+        virtual const char* what() const throw();
+    };
+
+    class NoSpanFound : public std::exception
+    {
+    public:
+        virtual const char* what() const throw();
+    };
+
+    void addNumber(int n);
+
+    template <typename T>
+    void addRange(const T& range);
+
+    unsigned long shortestSpan();
+    unsigned long longestSpan();
 };
 
-#endif 
+#include "Span.tpp"
+
+#endif

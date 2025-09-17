@@ -7,58 +7,68 @@ const char* Span::AlreadyFullException::what() const throw()
 }
 
 const char* Span::NoSpanFound::what() const throw()
-
 {
     return "No span found";
 }
 
+
+Span::Span() : _storage(), _maxSize(0) {}
 
 Span::Span(unsigned int N) : _storage(), _maxSize(N)
 {
     _storage.reserve(N);
 }
 
+Span::Span(const Span& other) : _storage(other._storage), _maxSize(other._maxSize) {}
+
+Span& Span::operator=(const Span& other)
+{
+    if (this != &other)
+    {
+        _storage = other._storage;
+        _maxSize = other._maxSize;
+    }
+    return *this;
+}
+
+Span::~Span() {}
+
+// Fonctions membres
+
 void Span::addNumber(int n)
 {
+    if (_storage.size() >= _maxSize)
+        throw AlreadyFullException();
     _storage.push_back(n);
 }
 
-template <typename T>
-void Span::addRange(const T& range)
-{
-    typename T::const_iteratorstart i = range.begin();
-    typename T::const_iterator end = range.end();
-    for (; i != end; ++i)
-    {
-        if (_storage.size() >= this->_maxSize)
-            throw AlreadyFullException();
-        _storage.push_back(*i);
-    }
-}
 
 
 unsigned long Span::shortestSpan()
 {
-    size_t stsspn;
-    for(size_t i = 0; i < _maxSize - 1; i++)
+    if (_storage.size() < 2)
+        throw NoSpanFound();
+
+    std::vector<int> sorted(_storage);
+    std::sort(sorted.begin(), sorted.end());
+
+    unsigned long minSpan = static_cast<unsigned long>(sorted[1] - sorted[0]);
+
+    for (size_t i = 1; i < sorted.size() - 1; ++i)
     {
-        size_t diff = std::abs(_storage[i] - _storage[i+1]);
-        if(diff < stsspn)
-            stsspn = diff;
+        unsigned long diff = static_cast<unsigned long>(sorted[i + 1] - sorted[i]);
+        if (diff < minSpan)
+            minSpan = diff;
     }
-    return stsspn;
+    return minSpan;
 }
-
-
 
 unsigned long Span::longestSpan()
 {
-    size_t lgstspn;
-    for(size_t i = 0; i < _maxSize - 1; i++)
-    {
-        size_t diff = std::abs(_storage[i] - _storage[i+1]);
-        if(diff > lgstspn)
-            lgstspn = diff;
-    }
-    return lgstspn;
-} 
+    if (_storage.size() < 2)
+        throw NoSpanFound();
+
+    int min = *std::min_element(_storage.begin(), _storage.end());
+    int max = *std::max_element(_storage.begin(), _storage.end());
+    return static_cast<unsigned long>(max - min);
+}

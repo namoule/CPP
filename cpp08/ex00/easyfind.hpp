@@ -4,7 +4,7 @@
 #include <iostream>
 
 
-class NoIntergerArgumentFound : public std::exception 
+class NoIntegerArgumentFound : public std::exception 
 {
     public:
         virtual const char* what() const throw();

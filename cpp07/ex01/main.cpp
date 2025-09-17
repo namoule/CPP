@@ -1,3 +1,5 @@
+#include <iostream>
+#include <string>
 #include "iter.hpp"
 
 template <typename T>
@@ -12,24 +14,30 @@ void increment(T& element)
     ++element;
 }
 
+int main()
+{
+    int arr[] = {1, 2, 3, 4, 5};
+    size_t len = sizeof(arr) / sizeof(arr[0]);
 
-int main() {
-    int intArray[] = {1, 2, 3, 4, 5};
-    size_t intLength = sizeof(intArray) / sizeof(intArray[0]);
+    std::cout << "Before increment:\n";
+    iter(arr, len, &printElement<int>);
 
-    std::cout << "Avant incrémentation :" << std::endl;
-    ::iter(intArray, intLength, printElement<int>);
+    iter(arr, len, &increment<int>);
 
-    ::iter(intArray, intLength, increment<int>);
+    std::cout << "After increment:\n";
+    iter(arr, len, &printElement<int>);
 
-    std::cout << "Après incrémentation :" << std::endl;
-    ::iter(intArray, intLength, printElement<int>);
+    std::string strArr[] = {"Hello", "world", "!"};
+    size_t lenStr = sizeof(strArr) / sizeof(strArr[0]);
 
-    std::string strArray[] = {"Hello", "world", "!"};
-    size_t strLength = sizeof(strArray) / sizeof(strArray[0]);
+    std::cout << "\nString array:\n";
+    iter(strArr, lenStr, &printElement<std::string>);
 
-    std::cout << "\nAffichage des chaînes :" << std::endl;
-    ::iter(strArray, strLength, printElement<std::string>);
+    const int constArr[] = {10, 20, 30};
+    size_t lenConst = sizeof(constArr) / sizeof(constArr[0]);
+
+    std::cout << "\nConst array:\n";
+    iter(constArr, lenConst, &printElement<int>); // ✅ OK
 
     return 0;
 }

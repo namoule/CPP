@@ -21,5 +21,8 @@ int	main(void)
 	{
 		std::cerr << "Exception: " << e.what() << std::endl;
 	}
+
+	Array<int> empty;
+	std::cout << "Empty array size: " << empty.size() << std::endl;
 	return (0);
 }

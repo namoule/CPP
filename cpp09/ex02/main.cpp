@@ -5,8 +5,7 @@ int main(int argc, char** argv)
     try
     {
         PmergeMe sorter;
-        sorter.parseInput(argc, argv);
-        sorter.run();
+        sorter.run(argc, argv);
     }
     catch (std::exception& e)
     {

@@ -1,41 +1,47 @@
 #include "PmergeMe.hpp"
+#include <exception>
 
 PmergeMe::PmergeMe()
 {
+    std::cout << "PmergeMe class created: please call run(int argc, char **argv) function to start" << std::endl;
+}
 
+PmergeMe::PmergeMe(int argc, char **argv)
+{
+    std::cout << "PmergeMe class created: start" << std::endl;
+    run(argc, argv);
 }
 
 PmergeMe::~PmergeMe()
 {
-
 }
 
-
-PmergeMe::PmergeMe(const PmergeMe& other)
+PmergeMe::PmergeMe(const PmergeMe &other)
 {
-    this->_result = other._result;
-    this->_input = other._input;
+    this->_vector = other._vector;
+    this->_deque = other._deque;
 }
-PmergeMe& PmergeMe::operator=(const PmergeMe& other)
+
+PmergeMe &PmergeMe::operator=(const PmergeMe &other)
 {
-    if(this->_result != other._result)
+    if (this->_vector != other._vector)
     {
-        this->_result = other._result;
+        this->_vector = other._vector;
     }
-    else if(this->_input != other._input)
+    else if (this->_deque != other._deque)
     {
-        this->_input = other._input;
+        this->_deque = other._deque;
     }
     return *this;
 }
 
-bool PmergeMe::isPositiveInteger(const std::string& str)
+bool PmergeMe::isPositiveInteger(const std::string &str)
 {
-    if(str.empty())
-        throw WrongInput();
-    for(int i = 0; str[i]; i++)
+    if (str.empty())
+        std::invalid_argument("Error: wrong arguments.");
+    for (int i = 0; str[i]; i++)
     {
-        if(str[i] < '0' || str[i] > '9')
+        if (str[i] < '0' || str[i] > '9')
             return false;
     }
     return true;
@@ -43,68 +49,154 @@ bool PmergeMe::isPositiveInteger(const std::string& str)
 
 void PmergeMe::parseInput(int argc, char **argv)
 {
-    for(int i = 1; i < argc; i++)
+    for (int i = 1; i < argc; i++)
     {
-        if(!isPositiveInteger(argv[i]))
-            throw WrongInput();
+        if (!isPositiveInteger(argv[i]))
+            throw std::invalid_argument("argument list not ok");
         int value = std::atoi(argv[i]);
-        _input.push_back(value);
+        _vector.push_back(value);
+        _deque.push_back(value);
     }
-    if(_input.empty())
-        throw WrongInput();
-}
-void PmergeMe::fordJohnsonSort()
-{
-    _result.clear();
-
-    size_t n = _input.size();
-    size_t i = 0;
-    for (; i + 1 < n; i += 2)
-    {
-        int a = _input[i];
-        int b = _input[i + 1];
-
-        if (a < b)
-            _result.push_back(b);  // gagnant
-        else
-            _result.push_back(a);
-    }
-    if (i < n)
-        _result.push_back(_input[i]);
-    std::sort(_result.begin(), _result.end());
-    for (i = 0; i + 1 < n; i += 2)
-    {
-        int a = _input[i];
-        int b = _input[i + 1];
-        int loser = (a < b) ? a : b;
-        binaryInsert(loser);
-    }
+    if (_deque.empty())
+        throw std::invalid_argument("argument empty");
 }
 
-void PmergeMe::binaryInsert(int value)
+void PmergeMe::PrintTime()
 {
-    std::deque<int>::iterator it = std::lower_bound(_result.begin(), _result.end(), value);
-    _result.insert(it, value);
+}
+std::vector<unsigned int> PmergeMe::Jacobsthal(unsigned int size)
+{
+    std::vector<unsigned int> index;
+    std::vector<bool> seen(size, false);
+    unsigned int i = 0;
+    unsigned int j = 1;
+    while (j < size)
+    {
+        if (!seen[j])
+        {
+            index.push_back(j);
+            seen[j] = true;
+        }
+        unsigned int next = j + 2 * i;
+        i = j;
+        j = next;
+    }
+    for (unsigned int k = 0; k < size; ++k)
+    {
+        if (!seen[k])
+            index.push_back(k);
+    }
+    return index;
 }
 
-void PmergeMe::printResult()
+void PmergeMe::sort_vec(std::vector<unsigned int> &sort)
 {
-    std::cout << "Après  : ";
-    for (std::deque<int>::const_iterator it = _result.begin(); it != _result.end(); ++it)
+    if (sort.size() <= 1)
+        return;
+    int tmp = -1;
+    int size = sort.size();
+
+    if (sort.size() % 2)
     {
-        std::cout << *it << " ";
+        tmp = sort.back();
+        sort.pop_back();
+    }
+
+    std::vector<unsigned int> main, loser;
+    std::vector<unsigned int>::iterator it;
+    for (it = sort.begin(); it != sort.end(); it += 2)
+    {
+        main.push_back(std::max(*it, *(it + 1)));
+        loser.push_back(std::min(*it, *(it + 1)));
+        size--;
+    }
+
+    sort_vec(main);
+
+    if (tmp >= 0)
+        loser.push_back(tmp);
+
+    std::vector<unsigned int> jacobshtalresults = Jacobsthal(size);
+    for (int i = 0; i < size; ++i)
+    {
+        int toInsert = jacobshtalresults[i];
+        std::vector<unsigned int>::iterator pos = std::lower_bound(main.begin(), main.end(), loser[toInsert]);
+        main.insert(pos, loser[toInsert]);
+    }
+
+    sort = main;
+}
+
+void PmergeMe::sort_deq(std::deque<unsigned int> &sort)
+{
+    if (sort.size() < 2)
+        return;
+
+    int tmp = -1;
+    int size = sort.size();
+
+    if (sort.size() % 2)
+    {
+        tmp = sort.back();
+        sort.pop_back();
+        size--;
+    }
+
+    std::deque<unsigned int> main, loser;
+    std::deque<unsigned int>::iterator it;
+    for (it = sort.begin(); it != sort.end(); it += 2)
+    {
+        main.push_back(std::max(*it, *(it + 1)));
+        loser.push_back(std::min(*it, *(it + 1)));
+        size--;
+    }
+
+    sort_deq(main);
+
+    if (tmp >= 0)
+        loser.push_back(tmp);
+
+    std::vector<unsigned int> jacobshtalresults = Jacobsthal(size);
+    for (int i = 0; i < size; ++i)
+    {
+        int toInsert = jacobshtalresults[i];
+        std::deque<unsigned int>::iterator pos = std::lower_bound(main.begin(), main.end(), loser[toInsert]);
+        main.insert(pos, loser[toInsert]);
+    }
+    sort = main;
+}
+
+void printVector(const std::vector<unsigned int> &vec)
+{
+    std::cout << "Vector: ";
+    for (std::vector<unsigned int>::const_iterator it = vec.begin(); it != vec.end(); ++it)
+    {
+        std::cout << *it;
+        if (it + 1 != vec.end())
+            std::cout << " ";
     }
     std::cout << std::endl;
 }
 
-void PmergeMe::run()
+void printDeque(const std::deque<unsigned int> &deq)
 {
-    std::cout << "Avant  : ";
-    for (size_t i = 0; i < _input.size(); ++i)
+    std::cout << "Deque: ";
+    for (std::deque<unsigned int>::const_iterator it = deq.begin(); it != deq.end(); ++it)
     {
-        std::cout << _input[i] << " ";
+        std::cout << *it;
+        if (it + 1 != deq.end())
+            std::cout << " ";
     }
     std::cout << std::endl;
-    fordJohnsonSort();
-    printResult();
+}
+
+void PmergeMe::run(int argc, char **argv)
+{
+    // make print timer
+    parseInput(argc, argv);
+    sort_deq(_deque);
+    printDeque(_deque);
+    sort_vec(_vector);
+    printVector(_vector);
+    std::cout << "hey" << std::endl;
 }

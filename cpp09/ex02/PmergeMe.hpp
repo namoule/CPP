@@ -5,34 +5,36 @@
 #include <vector>
 #include <deque>
 #include <string>
+#include <cstdlib>
+#include <algorithm>
+#include <stdexcept>	
 
 class PmergeMe
 {
     public:
-        class WrongInput : public std::exception
-        {
-            public:
-                virtual const char* what() const throw()
-                {
-                    return "Error: could not open file.";
-                }
-        };
-        void parseInput(int argc, char** argv);
-        void run();
         PmergeMe();
+        PmergeMe(int argc, char **argv);
+        
+        ~PmergeMe();
+        
+        void run(int argc, char **argv);
+    private:
+        std::vector<unsigned int> _vector;
+        std::deque<unsigned int> _deque;
+
         PmergeMe(const PmergeMe& other);
         PmergeMe& operator=(const PmergeMe& other);
-        ~PmergeMe();
-    private:
-        std::vector<int> _input;
-        std::deque<int> _result;
 
-        void fordJohnsonSort();
-        void binaryInsert(int value);
         bool isPositiveInteger(const std::string& str);
-        void printResult();
+        void parseInput(int argc, char** argv);
 
+        void    sort_deq(std::deque<unsigned int> &sort);
+        void    sort_vec(std::vector<unsigned int> &sort);
 
+        std::vector<unsigned int>    Jacobsthal(unsigned int nbOfValues);
+
+        void    PrintTime();
+        void    PrintResult();
 };
 
 

@@ -126,12 +126,10 @@ void PmergeMe::sort_vec(std::vector<unsigned int> &sort)
 
     sort = main;
 }
-
 void PmergeMe::sort_deq(std::deque<unsigned int> &sort)
 {
-    if (sort.size() < 2)
+    if (sort.size() <= 1)
         return;
-
     int tmp = -1;
     int size = sort.size();
 
@@ -139,7 +137,6 @@ void PmergeMe::sort_deq(std::deque<unsigned int> &sort)
     {
         tmp = sort.back();
         sort.pop_back();
-        size--;
     }
 
     std::deque<unsigned int> main, loser;
@@ -163,40 +160,57 @@ void PmergeMe::sort_deq(std::deque<unsigned int> &sort)
         std::deque<unsigned int>::iterator pos = std::lower_bound(main.begin(), main.end(), loser[toInsert]);
         main.insert(pos, loser[toInsert]);
     }
+
     sort = main;
 }
 
 void printVector(const std::vector<unsigned int> &vec)
 {
-    std::cout << "Vector: ";
     for (std::vector<unsigned int>::const_iterator it = vec.begin(); it != vec.end(); ++it)
     {
         std::cout << *it;
         if (it + 1 != vec.end())
             std::cout << " ";
     }
-    std::cout << std::endl;
 }
 
 void printDeque(const std::deque<unsigned int> &deq)
 {
-    std::cout << "Deque: ";
     for (std::deque<unsigned int>::const_iterator it = deq.begin(); it != deq.end(); ++it)
     {
         std::cout << *it;
         if (it + 1 != deq.end())
             std::cout << " ";
     }
-    std::cout << std::endl;
+}
+
+void PmergeMe::runDeque()
+{
+    clock_t start = clock();
+    sort_deq(_deque);
+    clock_t end = clock();
+    double elapsed_ms = double(end - start) * 1000 / CLOCKS_PER_SEC;
+    std::cout << "Time to process a range of " << _deque.size() << " elements with std::deque<unsigned int> : " << elapsed_ms << " ms" << std::endl;
+    printDeque(_deque);
+}
+
+void PmergeMe::runVector()
+{
+    clock_t start = clock();
+    sort_vec(_vector);
+    clock_t end = clock();
+    double elapsed_ms = double(end - start) * 1000 / CLOCKS_PER_SEC;
+    std::cout << "Time to process a range of " << _vector.size() << " elements with std::vector<unsigned int> : " << elapsed_ms << " ms" << std::endl;
+    printVector(_vector);
 }
 
 void PmergeMe::run(int argc, char **argv)
 {
-    // make print timer
     parseInput(argc, argv);
-    sort_deq(_deque);
-    printDeque(_deque);
-    sort_vec(_vector);
-    printVector(_vector);
-    std::cout << "hey" << std::endl;
+    std::cout << "\n---------------------------------" << std::endl;
+    runDeque();
+    std::cout << "\n---------------------------------" << std::endl;
+    runVector();
+    std::cout << "\n---------------------------------" << std::endl;
+
 }

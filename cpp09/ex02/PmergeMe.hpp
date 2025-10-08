@@ -28,6 +28,10 @@ class PmergeMe
         bool isPositiveInteger(const std::string& str);
         void parseInput(int argc, char** argv);
 
+       void runDeque();
+       void runVector();
+
+
         void    sort_deq(std::deque<unsigned int> &sort);
         void    sort_vec(std::vector<unsigned int> &sort);
 

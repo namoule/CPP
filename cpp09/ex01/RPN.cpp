@@ -31,7 +31,7 @@ RPN &RPN::operator=(const RPN &other)
 
 void RPN::PrintValues() const
 {
-	std::stack<int> temp = this->_rpn;
+	std::stack<float> temp = this->_rpn;
 	std::cout << "Stack content (top to bottom):" << std::endl;
 	while (!temp.empty())
 	{
@@ -105,7 +105,6 @@ bool RPN::ParseValues(const char *value) const
 
 		if (isnum(value[i]))
 		{
-			// C’est un nombre positif
 			while (isnum(value[i]))
 				++i;
 			continue ;

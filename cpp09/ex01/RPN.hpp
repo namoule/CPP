@@ -26,10 +26,10 @@ public:
     };
 
 private:
-    std::stack<int> _rpn;
+    std::stack<float> _rpn;
 
     bool ParseValues(const char* value) const;
     void getValues(const std::string& data);
 };
 
-#endif // RPN_HPP
+#endif

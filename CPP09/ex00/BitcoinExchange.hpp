@@ -1,39 +1,31 @@
 #ifndef BITCOINEXCHANGE_HPP
 #define BITCOINEXCHANGE_HPP
 
-#include <iostream>
-#include <map>
-#include <fstream>
 #include <string>
-#include <sstream>
+#include <map>
+#include <exception>
 
 class BitcoinExchange
 {
-    public:
-    class FileOpenException : public std::exception
-    {
-        public:
-            virtual const char* what() const throw()
-            {
-                return "Error: could not open file.";
-            }
-    };
+private:
+    std::map<std::string, float> _btc;
 
-        BitcoinExchange();
+    bool isLeapYear(int year) const;
+    bool isValidDate(int year, int month, int day) const;
+    bool parseDate(const std::string& date, int& year, int& month, int& day) const;
 
-        ~BitcoinExchange();
+    void getValues(const std::string& data_file);
 
-        BitcoinExchange(const BitcoinExchange& other);
+public:
+    BitcoinExchange();
+    ~BitcoinExchange();
+    BitcoinExchange(const BitcoinExchange& other);
+    BitcoinExchange& operator=(const BitcoinExchange& other);
 
-        BitcoinExchange& operator=(const BitcoinExchange& other);
+    void printBtc() const;
+    void results(const std::string& filename) const;
 
-        void PrintBtc();
-        bool ParseKey(std::string key) const;
-        void getValues(const std::string &data);
-        void results(const std::string &filename);
-
-    private:
-        std::map<std::string, float> _btc;
+    class FileOpenException;
 };
 
 #endif

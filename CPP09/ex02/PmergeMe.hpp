@@ -1,45 +1,50 @@
 #ifndef PMERGEME_HPP
-#define PMERGEME_HPP
+# define PMERGEME_HPP
 
-#include <iostream>
-#include <vector>
-#include <deque>
-#include <string>
-#include <cstdlib>
-#include <algorithm>
-#include <stdexcept>	
+# include <algorithm>
+# include <cstdlib>
+# include <deque>
+# include <iostream>
+# include <stdexcept>
+# include <string>
+# include <vector>
 
 class PmergeMe
 {
-    public:
-        PmergeMe();
-        PmergeMe(int argc, char **argv);
-        
-        ~PmergeMe();
-        
-        void run(int argc, char **argv);
-    private:
-        std::vector<unsigned int> _vector;
-        std::deque<unsigned int> _deque;
+  public:
+	PmergeMe();
+	PmergeMe(int argc, char **argv);
 
-        PmergeMe(const PmergeMe& other);
-        PmergeMe& operator=(const PmergeMe& other);
+	~PmergeMe();
 
-        bool isPositiveInteger(const std::string& str);
-        void parseInput(int argc, char** argv);
+	void run(int argc, char **argv);
 
-       void runDeque();
-       void runVector();
+  private:
+	std::vector<unsigned int> _vector;
+	std::deque<unsigned int> _deque;
 
+	PmergeMe(const PmergeMe &other);
+	PmergeMe &operator=(const PmergeMe &other);
 
-        void    sort_deq(std::deque<unsigned int> &sort);
-        void    sort_vec(std::vector<unsigned int> &sort);
+	bool isPositiveInteger(const std::string &str);
+	void parseInput(int argc, char **argv);
 
-        std::vector<unsigned int>    Jacobsthal(unsigned int nbOfValues);
+	void runDeque();
+	void runVector();
 
-        void    PrintTime();
-        void    PrintResult();
+	std::deque<unsigned int> getDeque();
+	std::vector<unsigned int> getVector();
+
+    bool isSortedD(const std::deque<unsigned int> &sort) const ;
+    bool isSortedV(const std::vector<unsigned int> &sort) const ;
+
+    void sort_deq(std::deque<unsigned int> &sort);
+    void sort_vec(std::vector<unsigned int> &sort);
+
+	std::vector<unsigned int> Jacobsthal(unsigned int nbOfValues);
+
+	void PrintTime();
+	void PrintResult();
 };
-
 
 #endif

@@ -74,32 +74,38 @@ void PmergeMe::parseInput(int argc, char **argv)
 
 std::vector<unsigned int> PmergeMe::Jacobsthal(unsigned int size)
 {
-	unsigned int	i;
-	unsigned int	j;
-	unsigned int	next;
+    std::vector<unsigned int> indices;
+    if (size == 0)
+        return indices;
 
-	std::vector<unsigned int> index;
-	std::vector<bool> seen(size, false);
-	i = 0;
-	j = 1;
-	while (j < size)
-	{
-		if (!seen[j])
-		{
-			index.push_back(j);
-			seen[j] = true;
-		}
-		next = j + 2 * i;
-		i = j;
-		j = next;
-	}
-	for (unsigned int k = 0; k < size; ++k)
-	{
-		if (!seen[k])
-			index.push_back(k);
-	}
-	return (index);
+    std::vector<unsigned int> J;
+    J.push_back(0);
+    if (size == 1)
+        return indices;
+    J.push_back(1);
+
+    unsigned int n = 2;
+    while (true)
+    {
+        unsigned int next = J[n - 1] + 2 * J[n - 2];
+        if (next >= size)
+            break;
+        J.push_back(next);
+        n++;
+    }
+
+    for (size_t i = 1; i < J.size(); ++i)
+        indices.push_back(J[i]);
+
+    for (unsigned int k = 0; k < size; ++k)
+    {
+        if (std::find(indices.begin(), indices.end(), k) == indices.end())
+            indices.push_back(k);
+    }
+
+    return indices;
 }
+
 
 void PmergeMe::sort_vec(std::vector<unsigned int> &sort)
 {

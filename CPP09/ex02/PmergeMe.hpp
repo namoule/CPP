@@ -13,6 +13,7 @@ struct				Pair
 {
 	unsigned int	loser;
 	unsigned int	winner;
+    bool        isLast;
 };
 
 class PmergeMe
@@ -55,7 +56,7 @@ class PmergeMe
         bool isSortedD(const std::deque<unsigned int> &sort) const;
         bool isSortedV(const std::vector<unsigned int> &sort) const;
 
-        void isSorted();
+        void isSorted(unsigned int n);
 
         void    PrintResult();
 };

@@ -132,8 +132,7 @@ void PmergeMe::sort_vec(std::vector<unsigned int> &arr)
     for (size_t i = 0; i < pairs.size(); ++i)
     {
         winners.push_back(pairs[i].winner);
-        if (pairs[i].loser != pairs[i].winner)
-            losers.push_back(pairs[i].loser);
+        losers.push_back(pairs[i].loser);
     }
 
     sort_vec(winners);
@@ -143,7 +142,7 @@ void PmergeMe::sort_vec(std::vector<unsigned int> &arr)
 
     for (size_t i = 0; i < order.size() && i < losers.size(); ++i)
     {
-        unsigned int loser = losers[order[i]];
+        unsigned int loser = pairs[order[i]].loser;
         unsigned int winner = pairs[order[i]].winner;
         std::vector<unsigned int>::iterator winnerIt = std::find(sorted.begin(), sorted.end(), winner);
         std::vector<unsigned int>::iterator insertPos = std::lower_bound(sorted.begin(), winnerIt, loser);
@@ -167,8 +166,7 @@ void PmergeMe::sort_deq(std::deque<unsigned int> &arr)
     for (size_t i = 0; i < pairs.size(); ++i)
     {
         winners.push_back(pairs[i].winner);
-        if (pairs[i].loser != pairs[i].winner)
-            losers.push_back(pairs[i].loser);
+        losers.push_back(pairs[i].loser);
     }
 
     sort_deq(winners);
@@ -178,7 +176,7 @@ void PmergeMe::sort_deq(std::deque<unsigned int> &arr)
 
     for (size_t i = 0; i < order.size() && i < losers.size(); ++i)
     {
-        unsigned int loser = losers[order[i]];
+        unsigned int loser = pairs[order[i]].loser;
         unsigned int winner = pairs[order[i]].winner;
         std::deque<unsigned int>::iterator winnerIt = std::find(sorted.begin(), sorted.end(), winner);
         std::deque<unsigned int>::iterator insertPos = std::lower_bound(sorted.begin(), winnerIt, loser);
@@ -258,6 +256,7 @@ void PmergeMe::isSorted()
 void PmergeMe::run(int argc, char **argv)
 {
     parseInput(argc, argv);
+    std::cout << _vector.size() << " elements";
     for (int i = 1; i < argc; ++i)
         std::cout << "\033[31m" << argv[i] << "\033[0m" << " | ";
     std::cout << "\n---------------------------------\n";

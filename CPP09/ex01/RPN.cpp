@@ -4,7 +4,7 @@
 
 RPN::RPN(const std::string &expression)
 {
-	std::cout << "RPN constructor called" << std::endl;
+	// std::cout << "RPN constructor called" << std::endl;
 	if (!ParseValues(expression.c_str()))
 		throw notokException();
 	getValues(expression);
@@ -12,7 +12,7 @@ RPN::RPN(const std::string &expression)
 
 RPN::~RPN()
 {
-	std::cout << "RPN destructor called" << std::endl;
+	// std::cout << "RPN destructor called" << std::endl;
 }
 
 RPN::RPN(const RPN &other)
@@ -32,7 +32,6 @@ RPN &RPN::operator=(const RPN &other)
 void RPN::PrintValues() const
 {
 	std::stack<float> temp = this->_rpn;
-	std::cout << "Stack content (top to bottom):" << std::endl;
 	while (!temp.empty())
 	{
 		std::cout << temp.top() << std::endl;

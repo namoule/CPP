@@ -9,7 +9,7 @@
 class BitcoinExchange::FileOpenException : public std::exception
 {
 public:
-    virtual const char* what() const throw()
+    virtual const char *what() const throw()
     {
         return "Error: Unable to open file.";
     }
@@ -29,11 +29,7 @@ bool BitcoinExchange::isValidDate(int year, int month, int day) const
     if (year < 0 || month < 1 || month > 12 || day < 1)
         return false;
 
-    static const int daysInMonth[12] = {
-        31, 28, 31, 30, 31, 30,
-        31, 31, 30, 31, 30, 31
-    };
-
+    static const int daysInMonth[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     int maxDay = daysInMonth[month - 1];
     if (month == 2 && isLeapYear(year))
         maxDay = 29;
@@ -41,7 +37,7 @@ bool BitcoinExchange::isValidDate(int year, int month, int day) const
     return day <= maxDay;
 }
 
-bool BitcoinExchange::parseDate(const std::string& date, int& year, int& month, int& day) const
+bool BitcoinExchange::parseDate(const std::string &date, int &year, int &month, int &day) const
 {
     if (date.size() != 10)
         return false;
@@ -68,7 +64,7 @@ bool BitcoinExchange::parseDate(const std::string& date, int& year, int& month, 
 
     return isValidDate(year, month, day);
 }
-void BitcoinExchange::getValues(const std::string& data_file)
+void BitcoinExchange::getValues(const std::string &data_file)
 {
     std::ifstream file(data_file.c_str());
     if (!file.is_open())
@@ -116,12 +112,12 @@ BitcoinExchange::~BitcoinExchange()
 {
 }
 
-BitcoinExchange::BitcoinExchange(const BitcoinExchange& other)
+BitcoinExchange::BitcoinExchange(const BitcoinExchange &other)
 {
     _btc = other._btc;
 }
 
-BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other)
+BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &other)
 {
     if (this != &other)
         _btc = other._btc;
@@ -136,7 +132,7 @@ void BitcoinExchange::printBtc() const
     }
 }
 
-static void trim(std::string& s)
+static void trim(std::string &s)
 {
     std::string::size_type start = s.find_first_not_of(" \t");
     if (start == std::string::npos)
@@ -149,7 +145,7 @@ static void trim(std::string& s)
     s = s.substr(0, end + 1);
 }
 
-void BitcoinExchange::results(const std::string& filename) const
+void BitcoinExchange::results(const std::string &filename) const
 {
     std::ifstream file(filename.c_str());
     if (!file.is_open())

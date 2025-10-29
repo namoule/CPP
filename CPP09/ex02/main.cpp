@@ -4,11 +4,10 @@ int main(int argc, char** argv)
 {
     try
     {
-        // PmergeMe sorter;
-        // sorter.run(argc, argv);
-
-        
-        PmergeMe sorter(argc, argv);
+        PmergeMe DefaultConstructor;
+        DefaultConstructor.run(argc, argv);
+        // std::cout << "creation with arguments : " << std::endl;
+        // PmergeMe withArguments(argc, argv);
     }
     catch (std::exception& e)
     {
